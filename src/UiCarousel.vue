@@ -33,7 +33,7 @@ export default {
     props: {
         type: {
             type: String,
-            default: 'basic'
+            default: 'basic' // basic fade backSlide goDown fadeUp
         },
         autoLoop: {
             type: Boolean,
@@ -41,7 +41,7 @@ export default {
         },
         loopTime: {
             type: Number,
-            default: 10000
+            default: 5000
         },
         controlDot: {
             type: Boolean,
@@ -53,7 +53,7 @@ export default {
         },
         buttonType: {
             type: String,
-            default: 'basic'
+            default: 'basic' // basic arrow
         },
         disable: {
             type: Boolean,
@@ -132,11 +132,15 @@ export default {
             }
         },
         loop() {
-            this.loopInterval = setInterval(this.next, this.loopTime)
+            if (!this.loopInterval) {
+                this.loopInterval = setInterval(this.next, this.loopTime)
+            }
         },
         clearLoop() {
-            clearInterval(this.loopInterval)
-            this.loopInterval = null
+            if (this.loopInterval) {
+                clearInterval(this.loopInterval)
+                this.loopInterval = null
+            }
         },
         resetLoop() {
             this.clearLoop()
